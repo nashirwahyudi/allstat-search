@@ -4,7 +4,8 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { Message } from "../types";
+import { Message } from "../../types";
+import { generateChatResponse } from "../../services/api";
 import { Bot, Send, X, ArrowDown, HelpCircle, Loader, Landmark, Sparkles, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -57,18 +58,8 @@ export default function AIAssistant({ isOpen, onClose }: AIAssistantProps) {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/gemini/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMsg] }),
-      });
+      const data = await generateChatResponse([...messages, userMsg]);
 
-      if (!response.ok) {
-        throw new Error("HTTP error connecting to statistics broker backend.");
-      }
-
-      const data = await response.json();
-      
       const botMsg: Message = {
         id: Math.random().toString(),
         role: "assistant",

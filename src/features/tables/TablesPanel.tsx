@@ -4,8 +4,8 @@
  */
 
 import { useState, useMemo } from "react";
-import { StatTable } from "../types";
-import { STAT_TABLES } from "../data";
+import { StatTable } from "../../types";
+import { STAT_TABLES } from "../../services/mockData";
 import { FileSpreadsheet, Copy, Database, HelpCircle, Check, ArrowUpDown, RefreshCw, BarChart2, TrendingUp, Sparkles } from "lucide-react";
 
 export default function TablesPanel() {

@@ -4,8 +4,8 @@
  */
 
 import { useState } from "react";
-import { Publication } from "../types";
-import { PUBLICATIONS } from "../data";
+import { Publication } from "../../types";
+import { PUBLICATIONS } from "../../services/mockData";
 import { BookOpen, Download, Eye, Tag, Calendar, Globe, Search, ArrowRight, X, FileText, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 

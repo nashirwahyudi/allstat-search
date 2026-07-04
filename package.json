@@ -1,5 +1,5 @@
 {
-  "name": "react-example",
+  "name": "allstat-search",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -17,6 +17,7 @@
     "lucide-react": "^0.546.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-router-dom": "^6.28.0",
     "vite": "^6.2.3",
     "express": "^4.21.2",
     "dotenv": "^17.2.3",
@@ -24,6 +25,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
     "tailwindcss": "^4.1.14",

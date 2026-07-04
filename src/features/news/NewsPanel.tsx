@@ -4,8 +4,8 @@
  */
 
 import { useState } from "react";
-import { NewsItem } from "../types";
-import { NEWS_RELEASES } from "../data";
+import { NewsItem } from "../../types";
+import { NEWS_RELEASES } from "../../services/mockData";
 import { Calendar, User, Search, Eye, ArrowRight, Newspaper, ChevronRight, FileSpreadsheet, Percent, LayoutGrid } from "lucide-react";
 
 interface NewsPanelProps {

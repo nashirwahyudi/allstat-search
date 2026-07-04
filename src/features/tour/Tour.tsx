@@ -5,25 +5,27 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Compass, ArrowRight, ArrowLeft, X, Sparkles, Check, HelpCircle, Table, BookOpen, Newspaper, Landmark } from "lucide-react";
+import { SECTION_PATHS, SectionKey } from "../../routes/paths";
 
 interface TourStep {
   title: string;
   description: string;
-  tab: "dashboard" | "tables" | "publications" | "news";
+  tab: SectionKey;
   highlightId?: string;
   icon: React.ReactNode;
 }
 
 interface TourProps {
-  activeTab: "dashboard" | "publications" | "tables" | "news";
-  setActiveTab: (tab: "dashboard" | "publications" | "tables" | "news") => void;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function Tour({ activeTab, setActiveTab, isOpen, onClose }: TourProps) {
+export default function Tour({ isOpen, onClose }: TourProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const steps: TourStep[] = [
     {
@@ -66,10 +68,10 @@ export default function Tour({ activeTab, setActiveTab, isOpen, onClose }: TourP
   useEffect(() => {
     if (isOpen) {
       const step = steps[currentStep];
-      if (step && activeTab !== step.tab) {
-        setActiveTab(step.tab);
+      if (step && location.pathname !== SECTION_PATHS[step.tab]) {
+        navigate(SECTION_PATHS[step.tab]);
       }
-      
+
       // Auto scroll to highlighted elements to ensure premium visibility
       if (step && step.highlightId) {
         setTimeout(() => {

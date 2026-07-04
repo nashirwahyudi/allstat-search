@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Publication, NewsItem, StatTable } from "./types";
+import { Publication, NewsItem, StatTable } from "../types";
 
 export const PUBLICATIONS: Publication[] = [
   {

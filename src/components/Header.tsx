@@ -5,16 +5,18 @@
 
 import { BarChart3, Compass, Search, Menu, X, Landmark } from "lucide-react";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { SECTION_PATHS } from "../routes/paths";
 
 interface HeaderProps {
-  activeTab: "dashboard" | "publications" | "tables" | "news";
-  setActiveTab: (tab: "dashboard" | "publications" | "tables" | "news") => void;
   onStartTour: () => void;
   setSearchQuery: (query: string) => void;
 }
 
-export default function Header({ activeTab, setActiveTab, onStartTour, setSearchQuery }: HeaderProps) {
+export default function Header({ onStartTour, setSearchQuery }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navigationItems = [
     { id: "dashboard", label: "Dashboard" },
@@ -23,8 +25,10 @@ export default function Header({ activeTab, setActiveTab, onStartTour, setSearch
     { id: "news", label: "News & Releases" },
   ] as const;
 
+  const isActive = (id: typeof navigationItems[number]["id"]) => location.pathname === SECTION_PATHS[id];
+
   const handleNavClick = (id: typeof navigationItems[number]["id"]) => {
-    setActiveTab(id);
+    navigate(SECTION_PATHS[id]);
     setMobileMenuOpen(false);
   };
 
@@ -34,8 +38,8 @@ export default function Header({ activeTab, setActiveTab, onStartTour, setSearch
         
         {/* Logo and Brand Title */}
         <div 
-          className="flex cursor-pointer items-center space-x-2.5" 
-          onClick={() => { setActiveTab("dashboard"); setSearchQuery(""); }}
+          className="flex cursor-pointer items-center space-x-2.5"
+          onClick={() => { navigate(SECTION_PATHS.dashboard); setSearchQuery(""); }}
           id="nav-logo"
         >
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-tertiary text-primary-dark shadow-sm">
@@ -58,13 +62,13 @@ export default function Header({ activeTab, setActiveTab, onStartTour, setSearch
               onClick={() => handleNavClick(item.id)}
               id={`nav-${item.id}`}
               className={`relative py-5 font-sans text-sm font-medium transition-colors hover:text-primary ${
-                activeTab === item.id
+                isActive(item.id)
                   ? "text-primary-dark"
                   : "text-slate-500"
               }`}
             >
               {item.label}
-              {activeTab === item.id && (
+              {isActive(item.id) && (
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
               )}
             </button>
@@ -119,7 +123,7 @@ export default function Header({ activeTab, setActiveTab, onStartTour, setSearch
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
                 className={`flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  activeTab === item.id
+                  isActive(item.id)
                     ? "bg-tertiary text-primary-dark"
                     : "text-slate-600 hover:bg-slate-50"
                 }`}
