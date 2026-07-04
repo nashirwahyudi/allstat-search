@@ -1,6 +1,6 @@
 {
-  "name": "Data Integrity Portal",
-  "description": "Interactive statistics portal and Census SE2026 exploration engine for official tables, publications, news, and an AI-powered statistical assistant.",
+  "name": "Allstat Search",
+  "description": "",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

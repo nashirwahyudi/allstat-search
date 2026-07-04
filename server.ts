@@ -92,7 +92,7 @@ app.post("/api/gemini/generate", async (req, res) => {
     if (!ai) {
       // Fallback response if GEMINI_API_KEY is not defined
       const mockResponses = [
-        "Terima kasih atas pertanyaan Anda kepada Data Integrity Portal. Sensus Ekonomi 2026 (SE2026) merupakan program prioritas nasional BPS untuk memetakan seluruh aktivitas usaha non-pertanian di Indonesia, guna memperkuat kebijakan ekonomi nasional.",
+        "Terima kasih atas pertanyaan Anda kepada Allstat Search. Sensus Ekonomi 2026 (SE2026) merupakan program prioritas nasional BPS untuk memetakan seluruh aktivitas usaha non-pertanian di Indonesia, guna memperkuat kebijakan ekonomi nasional.",
         "Berdasarkan Berita Resmi Statistik (BRS) Maret 2026 terbaru, tingkat inflasi nasional tetap terjaga stabil pada kisaran 2.30% secara tahunan (year-on-year), didukung oleh stabilitas harga bahan pangan pokok.",
         "Sensus Ekonomi SE2026 akan mencakup cakupan digital usaha, kemitraan teknologi, dan partisipasi usaha kreatif dalam rangka menyongsong Indonesia Emas 2045.",
         "Provinsi Bali mencatatkan pertumbuhan PDRB yang sangat progresif mencapai 5.40% seiring pemulihan penuh sektor pariwisata dan industri kreatif lokal."
@@ -142,7 +142,7 @@ async function setupVite() {
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Data Integrity Portal Server listening on http://localhost:${PORT}`);
+    console.log(`Allstat Search Server listening on http://localhost:${PORT}`);
   });
 }
 

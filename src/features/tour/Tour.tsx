@@ -29,7 +29,7 @@ export default function Tour({ isOpen, onClose }: TourProps) {
 
   const steps: TourStep[] = [
     {
-      title: "Welcome to Data Integrity Portal!",
+      title: "Welcome to Allstat Search!",
       description: "Welcome to the official Sensus Ekonomi 2026 (SE2026) Portal. This portal aggregates official statistical files, provincial data streams, and economic monographs. Let us take a quick 1-minute tour to explore the primary tools available at your fingertips.",
       tab: "dashboard",
       icon: <Compass className="h-6 w-6 text-primary animate-spin-[spin_3s_linear_infinite]" />,
