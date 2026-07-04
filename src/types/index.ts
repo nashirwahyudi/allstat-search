@@ -3,13 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export interface Message {
-  role: "user" | "assistant";
-  content: string;
-  id: string;
-  timestamp: string;
-}
-
 export interface Publication {
   id: string;
   title: string;

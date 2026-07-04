@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { BarChart3, Compass, Search, Menu, X, Landmark } from "lucide-react";
+import { Compass, Search, Menu, X, Landmark } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SECTION_PATHS } from "../routes/paths";
 
@@ -17,12 +18,12 @@ export default function Header({ onStartTour, setSearchQuery }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const navigationItems = [
-    { id: "dashboard", label: "Dashboard" },
-    { id: "tables", label: "Browse Data / Tables" },
-    { id: "publications", label: "Publications" },
-    { id: "news", label: "News & Releases" },
+    { id: "tables", label: t("header.nav.tables") },
+    { id: "publications", label: t("header.nav.publications") },
+    { id: "news", label: t("header.nav.news") },
   ] as const;
 
   const isActive = (id: typeof navigationItems[number]["id"]) => location.pathname === SECTION_PATHS[id];
@@ -42,16 +43,11 @@ export default function Header({ onStartTour, setSearchQuery }: HeaderProps) {
           onClick={() => { navigate(SECTION_PATHS.dashboard); setSearchQuery(""); }}
           id="nav-logo"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-tertiary text-primary-dark shadow-sm">
-            <BarChart3 className="h-5 w-5 stroke-[2.5]" />
-          </div>
-          <div className="flex flex-col">
-            <h1 className="font-sans text-lg font-bold tracking-tight text-ink-dark flex items-center space-x-1">
-              <span>Integrity</span>
-              <span className="text-primary">Portal</span>
-            </h1>
-            <span className="font-mono text-[9px] uppercase tracking-wider text-slate-400">SE2026 Portal</span>
-          </div>
+          <img src="/assets/allstats-app-icon-512.webp" alt="Allstat Search" className="h-9 w-auto" />
+          <h1 className="font-sans text-lg font-bold tracking-tight text-ink-dark flex items-center space-x-1">
+            <span>Allstat</span>
+            <span className="text-primary">Search</span>
+          </h1>
         </div>
 
         {/* Desktop Navigation Links */}
@@ -83,15 +79,15 @@ export default function Header({ onStartTour, setSearchQuery }: HeaderProps) {
             id="nav-tour-btn"
           >
             <Compass className="h-4 w-4 animate-spin-[spin_4s_linear_infinite]" />
-            <span>Interactive Guide</span>
+            <span>{t("header.tourButton")}</span>
           </button>
-          
+
           <div className="flex items-center space-x-1.5 px-2 py-1 rounded-full bg-slate-100 text-slate-600 font-mono text-[10px] font-semibold">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
             </span>
-            <span>BPI NEWS LIVE</span>
+            <span>{t("header.liveBadge")}</span>
           </div>
         </div>
 
@@ -139,7 +135,7 @@ export default function Header({ onStartTour, setSearchQuery }: HeaderProps) {
               className="flex w-full items-center justify-center space-x-2 rounded-lg bg-primary py-2.5 text-xs font-semibold text-white shadow-sm"
             >
               <Compass className="h-4 w-4" />
-              <span>Interactive Guide</span>
+              <span>{t("header.tourButton")}</span>
             </button>
           </div>
         </div>

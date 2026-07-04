@@ -11,3 +11,7 @@ export const SECTION_PATHS: Record<SectionKey, string> = {
   publications: "/publications",
   news: "/news",
 };
+
+// Unified search results page, reached from the dashboard search bar. Not part of
+// the primary nav, so it lives outside SectionKey/SECTION_PATHS.
+export const SEARCH_PATH = "/search";

@@ -1,0 +1,144 @@
+{
+  "header": {
+    "brand": "Allstat Search",
+    "nav": {
+      "tables": "Browse Data / Tables",
+      "publications": "Publications",
+      "news": "News & Releases"
+    },
+    "tourButton": "Guide",
+    "liveBadge": "BPS NEWS LIVE"
+  },
+  "footer": {
+    "brand": "Allstat Search",
+    "copyright": "© {{year}} Allstat Search. Official Statistics Authority of the Indonesian Economic Census.",
+    "links": {
+      "privacy": "Privacy Policy",
+      "methodology": "Methodology",
+      "apiDocs": "API Docs",
+      "contact": "Contact"
+    },
+    "languageButton": "Language",
+    "helpButton": "Help",
+    "disclaimer": "Disclaimer: This portal displays simulated statistical data and planning reports models for the SE2026 economic census exercise.",
+    "poweredBy": "Powered by BPS System Integration"
+  },
+  "dashboard": {
+    "title": "Allstat",
+    "titleHighlight": "Search",
+    "subtitle": "Access official statistics, regional data, and comprehensive reports from the Sensus Ekonomi 2026 guidelines.",
+    "searchPlaceholder": "Search by topic, keyword, or catalog ID...",
+    "searchHelper": "Ready to search now? Find your desired documents instantly in our fast repository.",
+    "cards": {
+      "publications": {
+        "title": "Publication",
+        "description": "Access digital versions of official statistical yearbooks, technical guidance booklets, and regional economic summaries.",
+        "cta": "Explore Publications"
+      },
+      "tables": {
+        "title": "Table",
+        "description": "Query dynamic data grids on provincial consumer price indexes, labor indicators, and Sensus Ekonomi sebaran unit target.",
+        "cta": "Browse Data Tables"
+      },
+      "news": {
+        "title": "Official Statistic News",
+        "description": "Stay updated with the latest press briefs, quarterly inflation indices, structural PDRB news, and BRS files.",
+        "cta": "Read Releases"
+      }
+    },
+    "metrics": {
+      "badge": "Sensus Ekonomi SE2026 Core Metrics",
+      "title": "Statistik Utama & Target Kerja Nasional",
+      "guideButton": "Guide",
+      "inflation": { "label": "Nasional Inflation Rate", "status": "Stable", "caption": "Year-on-Year Gabungan (Mei 2026 update)" },
+      "unemployment": { "label": "Open Unemployment (TPT)", "status": "Down (-0.18)", "caption": "Q1 2026 Sakernas labor contraction indicators" },
+      "businesses": { "label": "Registered Businesses", "status": "SE2026 Goal", "caption": "Target scale-out count non-agricultural blocks" },
+      "participation": { "label": "Labor Participation (TPAK)", "status": "New Record", "caption": "Maximum participation rates recorded Q1 2026" }
+    }
+  },
+  "search": {
+    "title": "Search Results",
+    "subtitle": "Find your desired documents instantly across our statistics repository.",
+    "resultsFor": "Results for",
+    "clear": "Clear",
+    "tabs": { "all": "All", "publications": "Publications", "tables": "Tables", "news": "News" },
+    "noResults": "No matching documents found.",
+    "noResultsHint": "Try a different keyword, or start the guided tour to explore what's available.",
+    "startTour": "Start Guided Tour",
+    "viewDetails": "View Details",
+    "goToSection": "Open in {{section}}",
+    "badges": { "pub": "PUB", "table": "TABLE", "news": "NEWS" },
+    "detail": {
+      "category": "Category",
+      "year": "Year",
+      "region": "Region",
+      "source": "Source",
+      "date": "Date",
+      "close": "Close"
+    }
+  },
+  "tour": {
+    "steps": {
+      "welcome": { "title": "Welcome to Allstat Search!", "description": "Welcome to the official Sensus Ekonomi 2026 (SE2026) Portal. This portal aggregates official statistical files, provincial data streams, and economic monographs. Let us take a quick 1-minute tour to explore the primary tools available at your fingertips." },
+      "metrics": { "title": "Core Statistical Metrics", "description": "On the dashboard, you can view major national indicators at a glance. Find real-time values for Inflation Rates, Open Unemployment (TPT) Sakernas update, target Registered Businesses, and Labor Participation." },
+      "tables": { "title": "Browse Dynamic Tables", "description": "Need to slice and analyze data? Under this section, you can filter multiple datasets by province, sort any grid column instantly, and explore a fully interactive customized SVG trend line/bar visualizer with tooltip support." },
+      "publications": { "title": "Digital Publications Index", "description": "Access high-quality digital monographs, regional yearbooks, and official survey catalogs. Search by title or description, look at responsive monograph tag chips, and download official booklets instantly." },
+      "news": { "title": "Official Releases Feed", "description": "Read Berita Resmi Statistik (BRS) directly from the office. This section features interactive press releases with responsive miniature indicators, summaries, and complete official transcripts." }
+    },
+    "stepCounter": "Step {{current}} of {{total}}",
+    "onboardingGuide": "Onboarding Guide",
+    "viewing": "Viewing: {{tab}}",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "finish": "Finish"
+  },
+  "publications": {
+    "title": "Publications Index",
+    "subtitle": "Explore books, booklets, census logs, and analytical summaries.",
+    "totalIndex": "Total Index: {{count}} Monographs",
+    "searchPlaceholder": "Search publications by title, catalog ID, or keywords...",
+    "releaseYear": "Release Year:",
+    "allYears": "All Years",
+    "allCategories": "All Categories",
+    "categories": { "Economy": "Economy", "Social": "Social", "Population": "Population", "Environment": "Environment" },
+    "readSummary": "Read Summary",
+    "download": "JSON / PDF",
+    "views": "views",
+    "downloads": "downloads",
+    "noResultsTitle": "No publications found",
+    "noResultsHint": "Try adjusting your category, selecting a different release year, or clearing some keyword parameters.",
+    "clearFilters": "Clear Filters"
+  },
+  "tables": {
+    "title": "Dynamic Data Tables",
+    "subtitle": "Filter, sort, and visualize key BPS indicators down to the provincial plane.",
+    "selectDataset": "Select Dataset",
+    "provinceFilter": "Province Filter",
+    "provinceFilterHint": "Check provinces to visualize and slice data:",
+    "clear": "Clear",
+    "copyCsv": "Copy CSV",
+    "exportXls": "Export XLS",
+    "toastCopied": "Table copied to clipboard in CSV format!",
+    "toastExported": "Simulating Excel XLS file compile... Complete! Download started.",
+    "noRegionsMatch": "No regions match the filter guidelines. Check some provinces on the sidebar!",
+    "interpretationLabel": "Metodologi Interpretasi:"
+  },
+  "news": {
+    "title": "Statistical Releases & News",
+    "subtitle": "Read official announcements, BRS folders, and spatial analyses directly from the head office.",
+    "currentFeed": "Current feed: {{count}} Broadcasts",
+    "panelTitle": "Berita Resmi Statistik (BRS)",
+    "panelSubtitle": "Explore hot press releases, quarterly announcements, and census dissemination updates.",
+    "searchPlaceholder": "Search press releases...",
+    "noResults": "No press announcements match keywords.",
+    "readDetails": "Read Details",
+    "publishedBy": "Published by BPS Newsroom",
+    "downloadRelease": "Download Full Press Release (PDF)",
+    "exploreTitle": "Explore releases",
+    "exploreHint": "Select any press item from the feed on the left to read and analyze data indices."
+  },
+  "common": {
+    "cancel": "Cancel"
+  }
+}

@@ -4,11 +4,15 @@
  */
 
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { StatTable } from "../../types";
 import { STAT_TABLES } from "../../services/mockData";
 import { FileSpreadsheet, Copy, Database, HelpCircle, Check, ArrowUpDown, RefreshCw, BarChart2, TrendingUp, Sparkles } from "lucide-react";
+import Skeleton from "../../components/Skeleton";
+import useSimulatedLoading from "../../hooks/useSimulatedLoading";
 
 export default function TablesPanel() {
+  const { t } = useTranslation();
   const [activeTableId, setActiveTableId] = useState<string>(STAT_TABLES[0].id);
   const [selectedProvinces, setSelectedProvinces] = useState<string[]>([]);
   const [sortByColumn, setSortByColumn] = useState<string | null>(null);
@@ -16,6 +20,7 @@ export default function TablesPanel() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [hoveredDataIndex, setHoveredDataIndex] = useState<number | null>(null);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const loading = useSimulatedLoading([activeTableId, selectedProvinces, sortByColumn, sortDirection]);
 
   // Retrieve active table
   const activeTable = useMemo(() => {
@@ -134,11 +139,11 @@ export default function TablesPanel() {
     ].join("\n");
 
     navigator.clipboard.writeText(csvContent);
-    triggerToast("Table copied to clipboard in CSV format!");
+    triggerToast(t("tables.toastCopied"));
   };
 
   const handleExportXLS = () => {
-    triggerToast("Simulating Excel XLS file compile... Complete! Download started.");
+    triggerToast(t("tables.toastExported"));
   };
 
   const handleResetFilters = () => {
@@ -229,7 +234,7 @@ export default function TablesPanel() {
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
           <h3 className="font-sans text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center space-x-1.5 mb-3">
             <Database className="h-4 w-4 text-primary" />
-            <span>Select Dataset</span>
+            <span>{t("tables.selectDataset")}</span>
           </h3>
           <div className="space-y-1.5">
             {STAT_TABLES.map((table) => (
@@ -254,19 +259,19 @@ export default function TablesPanel() {
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
             <h3 className="font-sans text-xs font-bold text-slate-500 uppercase tracking-widest">
-              Province Filter
+              {t("tables.provinceFilter")}
             </h3>
             {selectedProvinces.length > 0 && (
               <button
                 onClick={handleResetFilters}
                 className="font-sans text-[10px] text-primary hover:underline font-bold"
               >
-                Clear
+                {t("tables.clear")}
               </button>
             )}
           </div>
           <p className="font-sans text-[11px] text-slate-400 mb-2 leading-tight">
-            Check provinces to visualize and slice data:
+            {t("tables.provinceFilterHint")}
           </p>
           <div className="space-y-1.5 max-h-52 overflow-y-auto pr-1">
             {allProvinces.map((prov) => (
@@ -338,7 +343,16 @@ export default function TablesPanel() {
           </div>
 
           <div className="w-full flex justify-center">
-            {svgChart ? (
+            {loading ? (
+              <div className="w-full space-y-3 py-4">
+                <Skeleton className="h-52 w-full" />
+                <div className="flex justify-center gap-6">
+                  <Skeleton className="h-3 w-16" />
+                  <Skeleton className="h-3 w-16" />
+                  <Skeleton className="h-3 w-16" />
+                </div>
+              </div>
+            ) : svgChart ? (
               <svg
                 width="100%"
                 height="100%"
@@ -593,7 +607,7 @@ export default function TablesPanel() {
                 title="Copy entire grid as CSV format"
               >
                 <Copy className="h-3.5 w-3.5" />
-                <span>Copy CSV</span>
+                <span>{t("tables.copyCsv")}</span>
               </button>
 
               <button
@@ -602,7 +616,7 @@ export default function TablesPanel() {
                 title="Download Excel spreadsheet"
               >
                 <FileSpreadsheet className="h-3.5 w-3.5" />
-                <span>Export XLS</span>
+                <span>{t("tables.exportXls")}</span>
               </button>
             </div>
           </div>
@@ -629,7 +643,17 @@ export default function TablesPanel() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {visibleData.map((row, rowIdx) => {
+                {loading ? (
+                  Array.from({ length: 6 }).map((_, rowIdx) => (
+                    <tr key={rowIdx}>
+                      {activeTable.columns.map((_, colIdx) => (
+                        <td key={colIdx} className="px-5 py-3">
+                          <Skeleton className="h-3 w-full" />
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : visibleData.map((row, rowIdx) => {
                   const isNational = row.region.startsWith("National");
                   return (
                     <tr
@@ -697,7 +721,7 @@ export default function TablesPanel() {
           {/* Empty fallback */}
           {visibleData.length === 0 && (
             <div className="py-12 text-center text-slate-400">
-              No regions match the filter guidelines. Check some provinces on the sidebar!
+              {t("tables.noRegionsMatch")}
             </div>
           )}
 
@@ -705,7 +729,7 @@ export default function TablesPanel() {
           <div className="p-4 border-t border-slate-100 bg-slate-50/50 text-[11px] leading-relaxed text-slate-500">
             <span className="font-bold flex items-center gap-1 text-slate-600 mb-1">
               <HelpCircle className="h-3.5 w-3.5 text-primary" />
-              <span>Metodologi Interpretasi:</span>
+              <span>{t("tables.interpretationLabel")}</span>
             </span>
             {activeTable.description}
           </div>

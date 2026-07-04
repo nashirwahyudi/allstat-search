@@ -4,17 +4,23 @@
  */
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NewsItem } from "../../types";
 import { NEWS_RELEASES } from "../../services/mockData";
 import { Calendar, User, Search, Eye, ArrowRight, Newspaper, ChevronRight, FileSpreadsheet, Percent, LayoutGrid } from "lucide-react";
+import Skeleton from "../../components/Skeleton";
+import useSimulatedLoading from "../../hooks/useSimulatedLoading";
 
 interface NewsPanelProps {
   initialSearchQuery: string;
 }
 
 export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState(initialSearchQuery || "");
   const [selectedNewsId, setSelectedNewsId] = useState<string>(NEWS_RELEASES[0].id);
+  const listLoading = useSimulatedLoading([search]);
+  const detailLoading = useSimulatedLoading([selectedNewsId]);
 
   // Filter Logic
   const filteredNews = NEWS_RELEASES.filter((item) => {
@@ -33,14 +39,14 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
       {/* Mini Inner Search Bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h3 className="font-sans text-sm font-bold text-ink-dark">Berita Resmi Statistik (BRS)</h3>
-          <p className="font-sans text-xs text-slate-400 mt-0.5">Explore hot press releases, quarterly announcements, and census dissemination updates.</p>
+          <h3 className="font-sans text-sm font-bold text-ink-dark">{t("news.panelTitle")}</h3>
+          <p className="font-sans text-xs text-slate-400 mt-0.5">{t("news.panelSubtitle")}</p>
         </div>
         <div className="relative w-full md:w-80">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search press releases..."
+            placeholder={t("news.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-lg border border-slate-200 bg-white py-2 pr-4 pl-9 font-sans text-xs outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20"
@@ -51,7 +57,18 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
       <div className="grid gap-6 md:grid-cols-12">
         {/* Left Side: News Feed List */}
         <div className="md:col-span-5 space-y-3 max-h-[70vh] overflow-y-auto pr-1">
-          {filteredNews.length > 0 ? (
+          {listLoading ? (
+            Array.from({ length: 4 }).map((_, idx) => (
+              <div key={idx} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-3 w-16" />
+                </div>
+                <Skeleton className="mt-3 h-4 w-full" />
+                <Skeleton className="mt-2 h-3 w-3/4" />
+              </div>
+            ))
+          ) : filteredNews.length > 0 ? (
             filteredNews.map((item) => (
               <div
                 key={item.id}
@@ -91,7 +108,7 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
                     <span>{item.author}</span>
                   </span>
                   <span className="text-primary font-semibold flex items-center gap-0.5 group-hover:translate-x-1 transition-transform">
-                    <span>Read Details</span>
+                    <span>{t("news.readDetails")}</span>
                     <ChevronRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
@@ -100,14 +117,31 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
           ) : (
             <div className="rounded-xl border border-dotted border-slate-300 bg-slate-50 py-10 text-center text-slate-400">
               <Newspaper className="mx-auto h-8 w-8 text-slate-300" />
-              <p className="mt-3 font-sans text-xs">No press announcements match keywords.</p>
+              <p className="mt-3 font-sans text-xs">{t("news.noResults")}</p>
             </div>
           )}
         </div>
 
         {/* Right Side: Active Release Broadcaster and Mini-Charts */}
         <div className="md:col-span-7">
-          {activeNews ? (
+          {detailLoading ? (
+            <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm space-y-5">
+              <div className="border-b border-slate-100 pb-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <Skeleton className="h-4 w-28" />
+                  <Skeleton className="h-3 w-32" />
+                </div>
+                <Skeleton className="h-5 w-full" />
+                <Skeleton className="h-5 w-2/3" />
+              </div>
+              <Skeleton className="h-20 w-full" />
+              <div className="space-y-2">
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-full" />
+                <Skeleton className="h-3 w-3/4" />
+              </div>
+            </div>
+          ) : activeNews ? (
             <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm space-y-5 sticky top-20">
               {/* Header */}
               <div className="border-b border-slate-100 pb-4">
@@ -189,14 +223,14 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
 
               {/* Action Operations */}
               <div className="border-t border-slate-100/80 pt-3.5 flex items-center justify-between text-xs font-sans">
-                <span className="text-slate-400">Published by BPS Newsroom</span>
-                
+                <span className="text-slate-400">{t("news.publishedBy")}</span>
+
                 <a
                   href="#"
                   onClick={(e) => { e.preventDefault(); alert("Simulated: Navigating to downstream BRS catalog repository."); }}
                   className="inline-flex items-center space-x-1 font-bold text-primary hover:text-action-hover active:scale-95 transition-all"
                 >
-                  <span>Download Full Press Release (PDF)</span>
+                  <span>{t("news.downloadRelease")}</span>
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
@@ -204,8 +238,8 @@ export default function NewsPanel({ initialSearchQuery }: NewsPanelProps) {
           ) : (
             <div className="rounded-xl border border-slate-200 bg-white py-24 text-center text-slate-400">
               <Newspaper className="mx-auto h-12 w-12 text-slate-300" />
-              <h3 className="mt-4 font-sans text-base font-semibold text-slate-700">Explore releases</h3>
-              <p className="mt-2 font-sans text-xs">Select any press item from the feed on the left to read and analyze data indices.</p>
+              <h3 className="mt-4 font-sans text-base font-semibold text-slate-700">{t("news.exploreTitle")}</h3>
+              <p className="mt-2 font-sans text-xs">{t("news.exploreHint")}</p>
             </div>
           )}
         </div>

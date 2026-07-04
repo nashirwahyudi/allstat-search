@@ -1,0 +1,144 @@
+{
+  "header": {
+    "brand": "Allstat Search",
+    "nav": {
+      "tables": "Jelajahi Data / Tabel",
+      "publications": "Publikasi",
+      "news": "Berita & Rilis"
+    },
+    "tourButton": "Panduan",
+    "liveBadge": "BERITA BPS LIVE"
+  },
+  "footer": {
+    "brand": "Allstat Search",
+    "copyright": "© {{year}} Allstat Search. Otoritas Statistik Resmi Sensus Ekonomi Indonesia.",
+    "links": {
+      "privacy": "Kebijakan Privasi",
+      "methodology": "Metodologi",
+      "apiDocs": "Dokumentasi API",
+      "contact": "Kontak"
+    },
+    "languageButton": "Bahasa",
+    "helpButton": "Bantuan",
+    "disclaimer": "Disclaimer: Portal ini menampilkan data statistik simulasi dan model laporan perencanaan untuk kegiatan Sensus Ekonomi SE2026.",
+    "poweredBy": "Didukung oleh Integrasi Sistem BPS"
+  },
+  "dashboard": {
+    "title": "Allstat",
+    "titleHighlight": "Search",
+    "subtitle": "Akses statistik resmi, data regional, dan laporan lengkap berdasarkan panduan Sensus Ekonomi 2026.",
+    "searchPlaceholder": "Cari berdasarkan topik, kata kunci, atau ID katalog...",
+    "searchHelper": "Siap mencari sekarang? Temukan dokumen yang Anda butuhkan secara instan di repositori kami.",
+    "cards": {
+      "publications": {
+        "title": "Publikasi",
+        "description": "Akses versi digital buku tahunan statistik resmi, buku panduan teknis, dan ringkasan ekonomi regional.",
+        "cta": "Jelajahi Publikasi"
+      },
+      "tables": {
+        "title": "Tabel",
+        "description": "Telusuri grid data dinamis mengenai indeks harga konsumen provinsi, indikator ketenagakerjaan, dan target sebaran unit Sensus Ekonomi.",
+        "cta": "Jelajahi Tabel Data"
+      },
+      "news": {
+        "title": "Berita Statistik Resmi",
+        "description": "Ikuti perkembangan siaran pers terbaru, indeks inflasi triwulanan, berita struktural PDRB, dan berkas BRS.",
+        "cta": "Baca Rilis"
+      }
+    },
+    "metrics": {
+      "badge": "Metrik Utama Sensus Ekonomi SE2026",
+      "title": "Statistik Utama & Target Kerja Nasional",
+      "guideButton": "Panduan",
+      "inflation": { "label": "Tingkat Inflasi Nasional", "status": "Stabil", "caption": "Gabungan Year-on-Year (update Mei 2026)" },
+      "unemployment": { "label": "Pengangguran Terbuka (TPT)", "status": "Turun (-0.18)", "caption": "Indikator kontraksi tenaga kerja Sakernas Q1 2026" },
+      "businesses": { "label": "Usaha Terdaftar", "status": "Target SE2026", "caption": "Target jumlah blok non-pertanian" },
+      "participation": { "label": "Partisipasi Angkatan Kerja (TPAK)", "status": "Rekor Baru", "caption": "Tingkat partisipasi tertinggi tercatat Q1 2026" }
+    }
+  },
+  "search": {
+    "title": "Hasil Pencarian",
+    "subtitle": "Temukan dokumen yang Anda butuhkan secara instan di seluruh repositori statistik kami.",
+    "resultsFor": "Hasil untuk",
+    "clear": "Hapus",
+    "tabs": { "all": "Semua", "publications": "Publikasi", "tables": "Tabel", "news": "Berita" },
+    "noResults": "Tidak ada dokumen yang cocok ditemukan.",
+    "noResultsHint": "Coba kata kunci lain, atau mulai tur panduan untuk menjelajahi apa yang tersedia.",
+    "startTour": "Mulai Tur Panduan",
+    "viewDetails": "Lihat Detail",
+    "goToSection": "Buka di {{section}}",
+    "badges": { "pub": "PUB", "table": "TABEL", "news": "BERITA" },
+    "detail": {
+      "category": "Kategori",
+      "year": "Tahun",
+      "region": "Wilayah",
+      "source": "Sumber",
+      "date": "Tanggal",
+      "close": "Tutup"
+    }
+  },
+  "tour": {
+    "steps": {
+      "welcome": { "title": "Selamat Datang di Allstat Search!", "description": "Selamat datang di Portal resmi Sensus Ekonomi 2026 (SE2026). Portal ini mengumpulkan berkas statistik resmi, aliran data provinsi, dan monograf ekonomi. Mari kita lakukan tur singkat 1 menit untuk menjelajahi perangkat utama yang tersedia." },
+      "metrics": { "title": "Metrik Statistik Utama", "description": "Pada dasbor, Anda dapat melihat indikator nasional utama sekilas. Temukan nilai real-time untuk Tingkat Inflasi, update Pengangguran Terbuka (TPT) Sakernas, target Usaha Terdaftar, dan Partisipasi Angkatan Kerja." },
+      "tables": { "title": "Jelajahi Tabel Dinamis", "description": "Perlu memilah dan menganalisis data? Pada bagian ini, Anda dapat memfilter berbagai dataset per provinsi, mengurutkan kolom grid secara instan, dan menjelajahi visualisasi tren SVG garis/batang interaktif lengkap dengan tooltip." },
+      "publications": { "title": "Indeks Publikasi Digital", "description": "Akses monograf digital berkualitas tinggi, buku tahunan regional, dan katalog survei resmi. Cari berdasarkan judul atau deskripsi, lihat chip tag monograf responsif, dan unduh buklet resmi secara instan." },
+      "news": { "title": "Umpan Rilis Resmi", "description": "Baca Berita Resmi Statistik (BRS) langsung dari kantor pusat. Bagian ini menampilkan siaran pers interaktif dengan indikator mini responsif, ringkasan, dan transkrip resmi lengkap." }
+    },
+    "stepCounter": "Langkah {{current}} dari {{total}}",
+    "onboardingGuide": "Panduan Orientasi",
+    "viewing": "Melihat: {{tab}}",
+    "back": "Kembali",
+    "skip": "Lewati",
+    "next": "Lanjut",
+    "finish": "Selesai"
+  },
+  "publications": {
+    "title": "Indeks Publikasi",
+    "subtitle": "Jelajahi buku, buklet, catatan sensus, dan ringkasan analitis.",
+    "totalIndex": "Total Indeks: {{count}} Monograf",
+    "searchPlaceholder": "Cari publikasi berdasarkan judul, ID katalog, atau kata kunci...",
+    "releaseYear": "Tahun Rilis:",
+    "allYears": "Semua Tahun",
+    "allCategories": "Semua Kategori",
+    "categories": { "Economy": "Ekonomi", "Social": "Sosial", "Population": "Kependudukan", "Environment": "Lingkungan" },
+    "readSummary": "Baca Ringkasan",
+    "download": "JSON / PDF",
+    "views": "dilihat",
+    "downloads": "diunduh",
+    "noResultsTitle": "Publikasi tidak ditemukan",
+    "noResultsHint": "Coba sesuaikan kategori, pilih tahun rilis yang berbeda, atau hapus beberapa kata kunci.",
+    "clearFilters": "Hapus Filter"
+  },
+  "tables": {
+    "title": "Tabel Data Dinamis",
+    "subtitle": "Filter, urutkan, dan visualisasikan indikator utama BPS hingga ke tingkat provinsi.",
+    "selectDataset": "Pilih Dataset",
+    "provinceFilter": "Filter Provinsi",
+    "provinceFilterHint": "Centang provinsi untuk memvisualisasikan dan memilah data:",
+    "clear": "Hapus",
+    "copyCsv": "Salin CSV",
+    "exportXls": "Ekspor XLS",
+    "toastCopied": "Tabel disalin ke clipboard dalam format CSV!",
+    "toastExported": "Mensimulasikan kompilasi berkas Excel XLS... Selesai! Unduhan dimulai.",
+    "noRegionsMatch": "Tidak ada wilayah yang cocok dengan filter. Coba centang beberapa provinsi di sidebar!",
+    "interpretationLabel": "Metodologi Interpretasi:"
+  },
+  "news": {
+    "title": "Rilis & Berita Statistik",
+    "subtitle": "Baca pengumuman resmi, berkas BRS, dan analisis spasial langsung dari kantor pusat.",
+    "currentFeed": "Umpan saat ini: {{count}} Siaran",
+    "panelTitle": "Berita Resmi Statistik (BRS)",
+    "panelSubtitle": "Jelajahi siaran pers terbaru, pengumuman triwulanan, dan pembaruan diseminasi sensus.",
+    "searchPlaceholder": "Cari siaran pers...",
+    "noResults": "Tidak ada pengumuman pers yang cocok dengan kata kunci.",
+    "readDetails": "Baca Detail",
+    "publishedBy": "Dipublikasikan oleh Newsroom BPS",
+    "downloadRelease": "Unduh Siaran Pers Lengkap (PDF)",
+    "exploreTitle": "Jelajahi rilis",
+    "exploreHint": "Pilih item pers dari umpan di sebelah kiri untuk membaca dan menganalisis indeks data."
+  },
+  "common": {
+    "cancel": "Batal"
+  }
+}

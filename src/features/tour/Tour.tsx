@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Compass, ArrowRight, ArrowLeft, X, Sparkles, Check, HelpCircle, Table, BookOpen, Newspaper, Landmark } from "lucide-react";
 import { SECTION_PATHS, SectionKey } from "../../routes/paths";
@@ -26,38 +27,39 @@ export default function Tour({ isOpen, onClose }: TourProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const steps: TourStep[] = [
     {
-      title: "Welcome to Allstat Search!",
-      description: "Welcome to the official Sensus Ekonomi 2026 (SE2026) Portal. This portal aggregates official statistical files, provincial data streams, and economic monographs. Let us take a quick 1-minute tour to explore the primary tools available at your fingertips.",
+      title: t("tour.steps.welcome.title"),
+      description: t("tour.steps.welcome.description"),
       tab: "dashboard",
       icon: <Compass className="h-6 w-6 text-primary animate-spin-[spin_3s_linear_infinite]" />,
     },
     {
-      title: "Core Statistical Metrics",
-      description: "On the dashboard, you can view major national indicators at a glance. Find real-time values for Inflation Rates, Open Unemployment (TPT) Sakernas update, target Registered Businesses, and Labor Participation.",
+      title: t("tour.steps.metrics.title"),
+      description: t("tour.steps.metrics.description"),
       tab: "dashboard",
       highlightId: "core-metrics-section",
       icon: <Landmark className="h-6 w-6 text-primary" />,
     },
     {
-      title: "Browse Dynamic Tables",
-      description: "Need to slice and analyze data? Under this section, you can filter multiple datasets by province, sort any grid column instantly, and explore a fully interactive customized SVG trend line/bar visualizer with tooltip support.",
+      title: t("tour.steps.tables.title"),
+      description: t("tour.steps.tables.description"),
       tab: "tables",
       highlightId: "data-tables-section",
       icon: <Table className="h-6 w-6 text-primary" />,
     },
     {
-      title: "Digital Publications Index",
-      description: "Access high-quality digital monographs, regional yearbooks, and official survey catalogs. Search by title or description, look at responsive monograph tag chips, and download official booklets instantly.",
+      title: t("tour.steps.publications.title"),
+      description: t("tour.steps.publications.description"),
       tab: "publications",
       highlightId: "publications-index-section",
       icon: <BookOpen className="h-6 w-6 text-primary" />,
     },
     {
-      title: "Official Releases Feed",
-      description: "Read Berita Resmi Statistik (BRS) directly from the office. This section features interactive press releases with responsive miniature indicators, summaries, and complete official transcripts.",
+      title: t("tour.steps.news.title"),
+      description: t("tour.steps.news.description"),
       tab: "news",
       highlightId: "news-section",
       icon: <Newspaper className="h-6 w-6 text-primary" />,
@@ -162,11 +164,11 @@ export default function Tour({ isOpen, onClose }: TourProps) {
               </span>
               <div>
                 <span className="font-mono text-[9px] uppercase tracking-widest text-slate-400 font-bold">
-                  Step {currentStep + 1} of {steps.length}
+                  {t("tour.stepCounter", { current: currentStep + 1, total: steps.length })}
                 </span>
                 <h4 className="font-sans text-xs font-extrabold text-primary uppercase tracking-wide flex items-center gap-1">
                   <Sparkles className="h-3 w-3" />
-                  <span>Onboarding Guide</span>
+                  <span>{t("tour.onboardingGuide")}</span>
                 </h4>
               </div>
             </div>
@@ -206,7 +208,7 @@ export default function Tour({ isOpen, onClose }: TourProps) {
             </div>
 
             <span className="font-sans text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
-              Viewing: {activeStep.tab}
+              {t("tour.viewing", { tab: activeStep.tab })}
             </span>
           </div>
 
@@ -218,7 +220,7 @@ export default function Tour({ isOpen, onClose }: TourProps) {
               className="flex items-center space-x-1 rounded-lg border border-slate-200 px-3 py-1.5 font-sans text-xs font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:hover:bg-transparent transition-all"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Back</span>
+              <span>{t("tour.back")}</span>
             </button>
 
             <div className="flex items-center space-x-2">
@@ -226,14 +228,14 @@ export default function Tour({ isOpen, onClose }: TourProps) {
                 onClick={handleSkip}
                 className="font-sans text-xs font-semibold text-slate-400 hover:text-slate-600 px-2.5 py-1.5"
               >
-                Skip
+                {t("tour.skip")}
               </button>
 
               <button
                 onClick={handleNext}
                 className="flex items-center space-x-1 rounded-lg bg-primary px-4 py-2 font-sans text-xs font-bold text-white shadow-md hover:bg-action-hover active:scale-95 transition-all"
               >
-                <span>{currentStep === steps.length - 1 ? "Finish" : "Next"}</span>
+                <span>{currentStep === steps.length - 1 ? t("tour.finish") : t("tour.next")}</span>
                 {currentStep === steps.length - 1 ? (
                   <Check className="h-3.5 w-3.5" />
                 ) : (

@@ -10,21 +10,18 @@ import DashboardPage from "../features/dashboard/DashboardPage";
 import PublicationsPage from "../features/publications/PublicationsPage";
 import TablesPage from "../features/tables/TablesPage";
 import NewsPage from "../features/news/NewsPage";
+import SearchResultsPage from "../features/search/SearchResultsPage";
 
 interface AppRoutesProps {
   globalSearch: string;
-  searchTriggered: boolean;
   setGlobalSearch: (value: string) => void;
-  setSearchTriggered: (value: boolean) => void;
   onStartTour: () => void;
   searchInputRef: RefObject<HTMLInputElement>;
 }
 
 export default function AppRoutes({
   globalSearch,
-  searchTriggered,
   setGlobalSearch,
-  setSearchTriggered,
   onStartTour,
   searchInputRef,
 }: AppRoutesProps) {
@@ -38,9 +35,7 @@ export default function AppRoutes({
           element={
             <DashboardPage
               globalSearch={globalSearch}
-              searchTriggered={searchTriggered}
               setGlobalSearch={setGlobalSearch}
-              setSearchTriggered={setSearchTriggered}
               onStartTour={onStartTour}
               searchInputRef={searchInputRef}
             />
@@ -49,6 +44,16 @@ export default function AppRoutes({
         <Route path="/publications" element={<PublicationsPage initialSearchQuery={globalSearch} />} />
         <Route path="/tables" element={<TablesPage />} />
         <Route path="/news" element={<NewsPage initialSearchQuery={globalSearch} />} />
+        <Route
+          path="/search"
+          element={
+            <SearchResultsPage
+              initialQuery={globalSearch}
+              setGlobalSearch={setGlobalSearch}
+              onStartTour={onStartTour}
+            />
+          }
+        />
       </Routes>
     </AnimatePresence>
   );

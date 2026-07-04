@@ -4,22 +4,27 @@
  */
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Publication } from "../../types";
 import { PUBLICATIONS } from "../../services/mockData";
 import { BookOpen, Download, Eye, Tag, Calendar, Globe, Search, ArrowRight, X, FileText, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import Skeleton from "../../components/Skeleton";
+import useSimulatedLoading from "../../hooks/useSimulatedLoading";
 
 interface PublicationsPanelProps {
   initialSearchQuery: string;
 }
 
 export default function PublicationsPanel({ initialSearchQuery }: PublicationsPanelProps) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState(initialSearchQuery || "");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedYear, setSelectedYear] = useState<string>("All");
   const [activePub, setActivePub] = useState<Publication | null>(null);
   const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
   const [downloadCompleted, setDownloadCompleted] = useState<boolean>(false);
+  const loading = useSimulatedLoading([search, selectedCategory, selectedYear]);
 
   // Filter Logic
   const filteredPubs = PUBLICATIONS.filter((pub) => {
@@ -66,7 +71,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
             <Search className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search publications by title, catalog ID, or keywords..."
+              placeholder={t("publications.searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pr-4 pl-11 font-sans text-sm outline-none transition-all focus:border-primary focus:ring-3 focus:ring-primary/20"
@@ -76,7 +81,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
           <div className="flex flex-wrap items-center gap-3">
             {/* Year Dropdown */}
             <div className="flex items-center space-x-2">
-              <span className="font-sans text-xs font-semibold text-slate-500">Release Year:</span>
+              <span className="font-sans text-xs font-semibold text-slate-500">{t("publications.releaseYear")}</span>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
@@ -84,7 +89,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
               >
                 {years.map((y) => (
                   <option key={y} value={y}>
-                    {y === "All" ? "All Years" : y}
+                    {y === "All" ? t("publications.allYears") : y}
                   </option>
                 ))}
               </select>
@@ -105,7 +110,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
-                {cat === "All" ? "All Categories" : cat}
+                {cat === "All" ? t("publications.allCategories") : t(`publications.categories.${cat}`)}
               </button>
             ))}
           </div>
@@ -113,7 +118,19 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
       </div>
 
       {/* Publications Grid */}
-      {filteredPubs.length > 0 ? (
+      {loading ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, idx) => (
+            <div key={idx} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <Skeleton className="mb-4 h-48 w-full" />
+              <Skeleton className="h-3 w-1/3 mb-3" />
+              <Skeleton className="h-4 w-full mb-2" />
+              <Skeleton className="h-4 w-2/3 mb-4" />
+              <Skeleton className="h-8 w-full" />
+            </div>
+          ))}
+        </div>
+      ) : filteredPubs.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredPubs.map((pub) => (
             <div
@@ -183,11 +200,11 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
                 <div className="flex items-center justify-between text-slate-400 text-[11px] mb-3">
                   <div className="flex items-center space-x-1.5">
                     <Eye className="h-3.5 w-3.5" />
-                    <span>{pub.viewCount.toLocaleString()} views</span>
+                    <span>{pub.viewCount.toLocaleString()} {t("publications.views")}</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <Download className="h-3.5 w-3.5" />
-                    <span>{pub.downloadCount.toLocaleString()} downloads</span>
+                    <span>{pub.downloadCount.toLocaleString()} {t("publications.downloads")}</span>
                   </div>
                 </div>
 
@@ -197,7 +214,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
                     className="flex items-center justify-center space-x-1.5 rounded-lg border border-slate-200 bg-white py-1.5 font-sans text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   >
                     <BookOpen className="h-3.5 w-3.5 text-slate-400" />
-                    <span>Read Summary</span>
+                    <span>{t("publications.readSummary")}</span>
                   </button>
 
                   <button
@@ -205,7 +222,7 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
                     className="flex items-center justify-center space-x-1.5 rounded-lg bg-tertiary py-1.5 font-sans text-xs font-semibold text-secondary-dark transition-colors hover:bg-primary hover:text-white"
                   >
                     <Download className="h-3.5 w-3.5" />
-                    <span>JSON / PDF</span>
+                    <span>{t("publications.download")}</span>
                   </button>
                 </div>
               </div>
@@ -215,15 +232,15 @@ export default function PublicationsPanel({ initialSearchQuery }: PublicationsPa
       ) : (
         <div className="rounded-xl border border-slate-200 bg-white py-12 text-center text-slate-500">
           <BookOpen className="mx-auto h-12 w-12 text-slate-300" />
-          <h3 className="mt-4 font-sans text-base font-semibold text-ink-dark">No publications found</h3>
+          <h3 className="mt-4 font-sans text-base font-semibold text-ink-dark">{t("publications.noResultsTitle")}</h3>
           <p className="mt-2 font-sans text-xs max-w-sm mx-auto">
-            Try adjusting your category, selecting a different release year, or clearing some keyword parameters.
+            {t("publications.noResultsHint")}
           </p>
           <button
             onClick={() => { setSearch(""); setSelectedCategory("All"); setSelectedYear("All"); }}
             className="mt-4 rounded-lg bg-primary px-4 py-2 font-sans text-xs font-semibold text-white hover:bg-action-hover"
           >
-            Clear Filters
+            {t("publications.clearFilters")}
           </button>
         </div>
       )}

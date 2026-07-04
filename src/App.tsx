@@ -7,16 +7,23 @@ import { useState, useEffect, useRef } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import AIAssistant from "./features/ai-assistant/AIAssistant";
+import LoadingScreen from "./components/LoadingScreen";
 import Tour from "./features/tour/Tour";
 import AppRoutes from "./routes/AppRoutes";
 
+const INITIAL_LOAD_MS = 1200;
+
 export default function App() {
   const [globalSearch, setGlobalSearch] = useState("");
-  const [searchTriggered, setSearchTriggered] = useState(false);
-  const [aiOpen, setAiOpen] = useState(false);
   const [tourOpen, setTourOpen] = useState(false);
+  const [appReady, setAppReady] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Block the UI behind a splash animation while the app boots.
+  useEffect(() => {
+    const timer = setTimeout(() => setAppReady(true), INITIAL_LOAD_MS);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Check if first-time user to automatically trigger tour
   useEffect(() => {
@@ -29,6 +36,10 @@ export default function App() {
     }
   }, []);
 
+  if (!appReady) {
+    return <LoadingScreen />;
+  }
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-bg-subtle text-ink-dark flex flex-col font-sans" id="app-root">
@@ -36,22 +47,17 @@ export default function App() {
         {/* Navigation Header */}
         <Header
           onStartTour={() => setTourOpen(true)}
-          setSearchQuery={(q) => { setGlobalSearch(q); setSearchTriggered(false); }}
+          setSearchQuery={setGlobalSearch}
         />
 
         <main className="flex-1">
           <AppRoutes
             globalSearch={globalSearch}
-            searchTriggered={searchTriggered}
             setGlobalSearch={setGlobalSearch}
-            setSearchTriggered={setSearchTriggered}
             onStartTour={() => setTourOpen(true)}
             searchInputRef={searchInputRef}
           />
         </main>
-
-        {/* Global Slide-In AI Stats Assistant */}
-        <AIAssistant isOpen={aiOpen} onClose={() => setAiOpen(false)} />
 
         {/* Interactive Guidance Onboarding System */}
         <Tour

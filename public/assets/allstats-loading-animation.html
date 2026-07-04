@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allstats — Loading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e16;
+    --bg-2: #0d1220;
+    --blue: #0094dd;
+    --green: #52ce29;
+    --orange: #eb891b;
+    --ink: #f4f6f9;
+    --muted: #6b7686;
+    --cycle: 2.4s;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    height: 100%;
+    margin: 0;
+  }
+
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background:
+      radial-gradient(120% 90% at 50% 20%, var(--bg-2) 0%, var(--bg) 60%);
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stage{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(14px, 3vw, 22px);
+    padding: 40px;
+  }
+
+  /* ambient glow behind the mark */
+  .glow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    height: 260px;
+    transform: translate(-50%, -60%);
+    background: radial-gradient(circle, rgba(0,148,221,0.20) 0%, rgba(82,206,41,0.10) 40%, rgba(0,0,0,0) 70%);
+    filter: blur(6px);
+    animation: breathe 4.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes breathe{
+    0%, 100%{ opacity: .6; transform: translate(-50%, -60%) scale(0.92); }
+    50%{ opacity: 1; transform: translate(-50%, -60%) scale(1.04); }
+  }
+
+  .mark{
+    width: clamp(96px, 22vw, 148px);
+    height: auto;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mark polygon{
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: barGrow var(--cycle) cubic-bezier(.45,0,.2,1) infinite;
+  }
+
+  .mark .p-blue-l{ fill: var(--blue);   animation-delay: 0ms;  }
+  .mark .p-blue-r{ fill: var(--blue);   animation-delay: 90ms; }
+  .mark .p-green { fill: var(--green);  animation-delay: 180ms;}
+  .mark .p-orange-l{ fill: var(--orange); animation-delay: 270ms;}
+  .mark .p-orange-r{ fill: var(--orange); animation-delay: 360ms;}
+
+  @keyframes barGrow{
+    0%, 100%{ transform: scaleY(.16); opacity: .5; }
+    50%{ transform: scaleY(1); opacity: 1; }
+  }
+
+  .wordmark{
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 4vw, 28px);
+    letter-spacing: 0.42em;
+    text-indent: 0.42em; /* re-center the tracked text */
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .status{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
+  .status .pct{
+    color: var(--ink);
+    font-weight: 500;
+    min-width: 3ch;
+    display: inline-block;
+  }
+
+  .track{
+    position: relative;
+    width: clamp(140px, 30vw, 200px);
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .track-fill{
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--blue), var(--green) 55%, var(--orange));
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: sweep var(--cycle) cubic-bezier(.45,0,.2,1) infinite;
+  }
+
+  @keyframes sweep{
+    0%   { transform: scaleX(0);  transform-origin: left; }
+    48%  { transform: scaleX(1);  transform-origin: left; }
+    52%  { transform: scaleX(1);  transform-origin: right; }
+    100% { transform: scaleX(0);  transform-origin: right; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .mark polygon{ animation: none; transform: scaleY(1); opacity: 1; }
+    .glow{ animation: none; opacity: .8; }
+    .track-fill{ animation: none; transform: scaleX(.6); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="stage">
+    <div class="glow"></div>
+
+    <svg class="mark" viewBox="-6 -6 134 118" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="p-blue-l"    points="25,4  2,19  2,59  25,43" />
+      <polygon class="p-blue-r"    points="34,4  34,59 57,75 57,19" />
+      <polygon class="p-green"     points="34,68 34,92 57,105 57,84" />
+      <polygon class="p-orange-l"  points="90,28 66,44 66,105 90,91" />
+      <polygon class="p-orange-r"  points="99,28 99,52 122,67 122,44" />
+    </svg>
+
+    <div class="wordmark">Allstats</div>
+
+    <div class="status">
+      <span>Syncing metrics</span>
+      <span class="pct" id="pct">00%</span>
+    </div>
+
+    <div class="track"><div class="track-fill"></div></div>
+  </div>
+
+<script>
+  // percentage readout, looped to match the CSS animation cycle
+  var cycleMs = 2400;
+  var pctEl = document.getElementById('pct');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduced) {
+    pctEl.textContent = '100%';
+  } else {
+    var start = performance.now();
+    function tick(now){
+      var t = (now - start) % cycleMs;
+      var progress;
+      if (t < cycleMs * 0.48) {
+        progress = t / (cycleMs * 0.48);
+      } else if (t < cycleMs * 0.52) {
+        progress = 1;
+      } else {
+        progress = 1 - (t - cycleMs * 0.52) / (cycleMs * 0.48);
+      }
+      var pct = Math.round(progress * 100);
+      pctEl.textContent = (pct < 10 ? '0' : '') + pct + '%';
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+</script>
+
+</body>
+</html>
